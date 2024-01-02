@@ -4,7 +4,7 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "./zod" 
+  output                = "./schemas" 
   relationModel         = true 
   modelCase             = "camelCase" 
   modelSuffix           = "Schema" 
