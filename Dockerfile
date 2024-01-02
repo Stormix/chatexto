@@ -16,7 +16,7 @@ ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
 
 # Install nodejs using n
 RUN apt-get -y update; apt-get -y install curl
-ARG NODE_VERSION=18
+ARG NODE_VERSION=20.9.0
 RUN curl -L https://raw.githubusercontent.com/tj/n/master/bin/n -o n \
     && bash n $NODE_VERSION \
     && rm n \
