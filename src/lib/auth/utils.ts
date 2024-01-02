@@ -1,5 +1,5 @@
 import { db } from '@/lib/db/index';
-import { PrismaAdapter } from '@auth/prisma-adapter';
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { DefaultSession, getServerSession, NextAuthOptions } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { env } from '@/lib/env.mjs';
