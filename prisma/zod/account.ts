@@ -1,4 +1,4 @@
-import * as z from 'zod';
+import z from 'zod';
 import { CompleteUser, relatedUserSchema } from './index';
 
 export const accountSchema = z.object({
