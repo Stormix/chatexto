@@ -28,9 +28,5 @@ RUN bun install
 COPY . .
 RUN bunx prisma generate
 
-RUN bun run build
-ENV NODE_ENV production
-
-WORKDIR /usr/src/app/.next/standalone
-EXPOSE 3000
-ENTRYPOINT [ "node", "server.js" ]
+EXPOSE 3001
+ENTRYPOINT [ "bun", "server" ]
