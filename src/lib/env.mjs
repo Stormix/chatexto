@@ -16,18 +16,12 @@ export const env = createEnv({
     TWITCH_CLIENT_ID: z.string().min(1),
     TWITCH_CLIENT_SECRET: z.string().min(1),
     WEBSOCKET_PORT: z.number().int().min(1).max(65535).default(3001),
-    WEBSOCKET_ENDPOINT: z.string().default('https://ws.chatexto.stormix.dev'),
   },
   client: {
-    // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),
+    NEXT_PUBLIC_WEBSOCKET_ENDPOINT: z.string().default('https://ws.chatexto.stormix.dev'),
   },
-  // If you're using Next.js < 13.4.4, you'll need to specify the runtimeEnv manually
-  // runtimeEnv: {
-  //   DATABASE_URL: process.env.DATABASE_URL,
-  //   NEXT_PUBLIC_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_PUBLISHABLE_KEY,
-  // },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
-    // NEXT_PUBLIC_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_WEBSOCKET_ENDPOINT: process.env.NEXT_PUBLIC_WEBSOCKET_ENDPOINT,
   },
 });
