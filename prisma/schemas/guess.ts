@@ -1,5 +1,5 @@
-import * as z from 'zod';
-import { CompleteGame, CompleteParticipant, relatedGameSchema, relatedParticipantSchema } from './index';
+import * as z from "zod"
+import { CompleteGame, relatedGameSchema, CompleteParticipant, relatedParticipantSchema } from "./index"
 
 export const guessSchema = z.object({
   id: z.string(),
@@ -10,11 +10,11 @@ export const guessSchema = z.object({
   score: z.number().int(),
   createdAt: z.date(),
   updatedAt: z.date(),
-});
+})
 
 export interface CompleteGuess extends z.infer<typeof guessSchema> {
-  game: CompleteGame;
-  participant: CompleteParticipant;
+  game: CompleteGame
+  participant: CompleteParticipant
 }
 
 /**
@@ -22,9 +22,7 @@ export interface CompleteGuess extends z.infer<typeof guessSchema> {
  *
  * NOTE: Lazy required in case of potential circular dependencies within schema
  */
-export const relatedGuessSchema: z.ZodSchema<CompleteGuess> = z.lazy(() =>
-  guessSchema.extend({
-    game: relatedGameSchema,
-    participant: relatedParticipantSchema,
-  }),
-);
+export const relatedGuessSchema: z.ZodSchema<CompleteGuess> = z.lazy(() => guessSchema.extend({
+  game: relatedGameSchema,
+  participant: relatedParticipantSchema,
+}))

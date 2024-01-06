@@ -16,6 +16,7 @@ export const env = createEnv({
     TWITCH_CLIENT_ID: z.string().min(1),
     TWITCH_CLIENT_SECRET: z.string().min(1),
     WEBSOCKET_PORT: z.number().int().min(1).max(65535).default(3001),
+    WEBSOCKET_ENDPOINT: z.string().default('https://ws.chatexto.stormix.dev'),
   },
   client: {
     // NEXT_PUBLIC_PUBLISHABLE_KEY: z.string().min(1),

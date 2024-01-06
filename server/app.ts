@@ -12,7 +12,7 @@ export class App {
   async setup() {
     this.server = new Server({
       cors: {
-        origin: [env.NEXTAUTH_URL, 'http://localhost:3000'],
+        origin: [env.NEXTAUTH_URL, env.WEBSOCKET_ENDPOINT, 'http://localhost:3000'],
       },
     });
 
