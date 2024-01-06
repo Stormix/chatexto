@@ -19,9 +19,11 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_WEBSOCKET_ENDPOINT: z.string().default('https://ws.chatexto.stormix.dev'),
+    NEXT_PUBLIC_NEXTAUTH_URL: z.string().url(),
   },
   // For Next.js >= 13.4.4, you only need to destructure client variables:
   experimental__runtimeEnv: {
     NEXT_PUBLIC_WEBSOCKET_ENDPOINT: process.env.NEXT_PUBLIC_WEBSOCKET_ENDPOINT,
+    NEXT_PUBLIC_NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL,
   },
 });

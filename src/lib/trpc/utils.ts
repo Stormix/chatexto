@@ -1,5 +1,5 @@
 import { env } from '../env.mjs';
 
 export function getUrl() {
-  return env.NEXTAUTH_URL + '/api/trpc';
+  return env.NEXT_PUBLIC_NEXTAUTH_URL + '/api/trpc';
 }

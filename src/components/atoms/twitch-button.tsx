@@ -10,7 +10,7 @@ const TwitchButton = ({ className }: { className?: string }) => {
   return (
     <Button
       className={cn(className)}
-      onClick={() => signIn('twitch', { callbackUrl: `${env.NEXTAUTH_URL}/game` })}
+      onClick={() => signIn('twitch', { callbackUrl: `${env.NEXT_PUBLIC_NEXTAUTH_URL}/game` })}
       variant={'twitch'}
       icon={<PiTwitchLogoFill className="w-5 h-5" />}
       size={'lg'}
