@@ -4,12 +4,12 @@ generator client {
 
 generator zod {
   provider              = "zod-prisma"
-  output                = "./schemas" 
-  relationModel         = true 
-  modelCase             = "camelCase" 
-  modelSuffix           = "Schema" 
-  useDecimalJs          = true 
-  prismaJsonNullability = true 
+  output                = "./schemas"
+  relationModel         = true
+  modelCase             = "camelCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  prismaJsonNullability = true
 }
 
 datasource db {
@@ -18,27 +18,19 @@ datasource db {
 }
 
 
-model Computer {
-  id    String @id @default(cuid())
-  brand String
-  cores Int
-}
-
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
-
-  
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -61,6 +53,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  games         Game[]
+  score         Int       @default(0)
 }
 
 model VerificationToken {
@@ -69,4 +63,54 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Game {
+  id   String @id @default(cuid())
+  word String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  guesses      Guess[]
+  participants Participant[]
+
+  duration Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, createdAt])
+}
+
+model Participant {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  totalScore Int @default(0)
+
+  guesses Guess[]
+  games   Game[]
+}
+
+model Guess {
+  id String @id @default(cuid())
+
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  participantId String
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  guess    String
+  distance Int
+
+  score Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

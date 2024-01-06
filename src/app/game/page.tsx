@@ -5,7 +5,7 @@ const GamePage = async () => {
   await checkAuth();
   const { session } = await getUserAuth();
 
-  return <Game />;
+  return <Game session={session!} />;
 };
 
 export default GamePage;

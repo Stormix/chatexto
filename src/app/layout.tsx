@@ -1,13 +1,13 @@
-import { ThemeProvider } from '@/components/ThemeProvider';
 import { Toaster } from '@/components/atoms/toaster';
 import Footer from '@/components/molecules/footer';
-import NextAuthProvider from '@/lib/auth/Provider';
-import TrpcProvider from '@/lib/trpc/Provider';
+import NextAuthProvider from '@/lib/auth/provider';
+import TrpcProvider from '@/lib/trpc/provider';
 import type { Metadata } from 'next';
 import { Inter, Press_Start_2P } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/providers/theme-provider';
 import './globals.css';
 
 const pressStart2p = Press_Start_2P({

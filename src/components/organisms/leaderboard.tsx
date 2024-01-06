@@ -32,7 +32,7 @@ const LeaderboardItem = ({ player, rank }: LeaderboardItem) => {
         })}
       >
         {rank < 3 ? <PiTrophyFill className="w-6 h-6" /> : <span className="w-0 h-6 -ml-2" />}
-        <div className="flex items-center justify-between flex-grow text-xs">
+        <div className="flex items-center justify-between flex-grow text-base">
           <p>{player.name}</p>
           <p>{player.score}</p>
         </div>

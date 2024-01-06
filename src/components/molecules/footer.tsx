@@ -22,10 +22,21 @@ const Ekb = () => {
   );
 };
 
+const Toto = () => {
+  return (
+    <div className="flex items-center gap-2 mx-2">
+      <Image src="/images/maadlou.webp" width={32} height={32} alt="Maadlou" />
+      <a href="https://maadlou.com/" className="text-chatexto-orange">
+        Maadlou
+      </a>
+    </div>
+  );
+};
+
 const Footer = () => {
   return (
-    <div className="flex items-center justify-center w-full py-8 text-xs text-white/70">
-      Made with love by <Smotix /> & <Ekb />
+    <div className="flex items-center justify-center w-full py-8 text-base text-white/70">
+      Made with love by <Smotix /> & <Ekb /> & <Toto />
     </div>
   );
 };

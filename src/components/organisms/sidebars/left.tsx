@@ -27,42 +27,6 @@ const dummyPlayers = [
     name: 'Ratchaw',
     score: 0,
   },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
-  {
-    name: 'Ratchaw',
-    score: 0,
-  },
 ];
 
 const LeftSidebar = ({ className }: LeftSidebarProps) => {
