@@ -9,8 +9,8 @@ interface LogoProps {
 const Logo = ({ className }: LogoProps) => {
   return (
     <div className={cn('flex text-center flex-col gap-1 w-fit', className)}>
-      <h1 className="text-5xl uppercase text-chatexto-gradient">Chatexto</h1>
-      <h2 className="text-sm uppercase">Contexto on steriods</h2>
+      <h1 className="text-[64px] uppercase text-chatexto-gradient">Chatexto</h1>
+      <h2 className="text-[24px] uppercase">Contexto on steriods</h2>
     </div>
   );
 };

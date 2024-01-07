@@ -55,6 +55,8 @@ export class App {
     this.server?.close();
     logger.info('Stopped server');
 
+    Chat.disconnectAll();
+
     await this.db.$disconnect();
     logger.info('Disconnected from database');
   }

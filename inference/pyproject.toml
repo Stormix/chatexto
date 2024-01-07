@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "chatexto-inference"
+version = "0.1.0"
+description = ""
+authors = ["Anas Mazouni <madadj4@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+Flask = "^3.0.0"
+fasttext = "^0.9.2"
+numpy = "^1.26.3"
+huggingface-hub = "^0.20.2"
+jsonschema = "^4.20.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

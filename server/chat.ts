@@ -20,8 +20,18 @@ class Chat {
   static getInstance(channel: string, ws: Socket, db: PrismaClient) {
     if (!this.instances[channel]) {
       this.instances[channel] = new Chat(channel, ws, db);
+      ws.on('disconnect', () => {
+        this.instances[channel].disconnect();
+        delete this.instances[channel];
+      });
     }
     return this.instances[channel];
+  }
+
+  static disconnectAll() {
+    Object.values(this.instances).forEach((instance) => {
+      instance.disconnect();
+    });
   }
 
   constructor(channel: string, ws: Socket, db: PrismaClient) {
@@ -75,6 +85,7 @@ class Chat {
 
     this.client.on('message', (channel, tags, message, self) => {
       if (self || !tags.username) return;
+      console.log('message', message);
       makeGuess(this.game, message, tags.username).then(
         (guess) => {
           if (guess) {
