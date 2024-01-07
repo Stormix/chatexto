@@ -1,20 +1,27 @@
+import fasttext
+import numpy as np
+
 from flask import Flask, jsonify, request
 from validators import validate_payload
 from errors import InvalidUsage
-import fasttext
 from huggingface_hub import hf_hub_download
-import numpy as np
+
+
+class Inference:
+    model = None
+    def load_model(self):
+        if self.model:
+            print("Model already loaded, we'll use it.")
+            return
+        print("Downloading model.")
+        model_path = hf_hub_download(repo_id="facebook/fasttext-en-vectors", filename="model.bin", cache_dir="cache")
+        self.model = fasttext.load_model(model_path)
+
+    def cosine_similarity(self, word1: str, word2: str) -> float:
+        return np.dot(self.model[word1], self.model[word2]) / (np.linalg.norm(self.model[word1]) * np.linalg.norm(self.model[word2]))
 
 app = Flask(__name__)
-
-
-def load_model() -> fasttext.FastText._FastText:
-    model_path = hf_hub_download(repo_id="facebook/fasttext-en-vectors", filename="model.bin", cache_dir="cache")
-    model = fasttext.load_model(model_path)
-    return model
-
-def cosine_similarity(model: fasttext.FastText._FastText, word1: str, word2: str) -> float:
-    return np.dot(model[word1], model[word2]) / (np.linalg.norm(model[word1]) * np.linalg.norm(model[word2]))
+Inference = Inference()
 
 @app.route("/")
 def health():
@@ -26,13 +33,12 @@ def predict():
     errors = validate_payload(request)
     if errors is not None:
         raise InvalidUsage(errors)
-    model = load_model()
+    if not Inference.model:
+        Inference.load_model()
     word = request.json["word"]
     guess = request.json["guess"]
-
-    similarity = cosine_similarity(model, word, guess)
-
-    return jsonify({"similarity": similarity})
+    similarity = Inference.cosine_similarity(word, guess)
+    return jsonify({"similarity": str(similarity)})
 
 
 @app.errorhandler(InvalidUsage)
