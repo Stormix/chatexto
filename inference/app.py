@@ -1,8 +1,8 @@
 import fasttext
 import numpy as np
+import subprocess
 
 from flask import Flask, jsonify, request
-from validators import validate_payload
 from errors import InvalidUsage
 from huggingface_hub import hf_hub_download
 
@@ -21,7 +21,7 @@ class Inference:
         return np.dot(self.model[word1], self.model[word2]) / (np.linalg.norm(self.model[word1]) * np.linalg.norm(self.model[word2]))
 
 app = Flask(__name__)
-Inference = Inference()
+inference = Inference()
 
 @app.route("/")
 def health():
@@ -30,14 +30,11 @@ def health():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    errors = validate_payload(request)
-    if errors is not None:
-        raise InvalidUsage(errors)
-    if not Inference.model:
-        Inference.load_model()
+    if not inference.model:
+        inference.load_model()
     word = request.json["word"]
     guess = request.json["guess"]
-    similarity = Inference.cosine_similarity(word, guess)
+    similarity = inference.cosine_similarity(word, guess)
     return jsonify({"similarity": str(similarity)})
 
 
@@ -48,4 +45,5 @@ def handle_invalid_usage(error):
    return response
 
 if __name__ == '__main__':
+    inference.load_model()
     app.run()

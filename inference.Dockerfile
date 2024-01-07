@@ -1,24 +1,29 @@
-FROM python:3.9-buster
+FROM tiangolo/uwsgi-nginx:python3.9
 
-RUN apt-get update
-RUN apt-get install -y  build-essential \
-                        software-properties-common \
-                        apt-transport-https \
-                        build-essential \
-                        ca-certificates \
-                        checkinstall \
-                        netcat \
-                        iputils-ping
+# Configure Poetry
+ENV POETRY_VERSION=1.7.1
+ENV POETRY_HOME=/opt/poetry
+ENV POETRY_VENV=/opt/poetry-venv
+ENV POETRY_CACHE_DIR=/opt/.cache
 
-RUN pip3 install --upgrade pip
-RUN pip3 install poetry
+# Install poetry separated from system interpreter
+RUN python3 -m venv $POETRY_VENV \
+    && $POETRY_VENV/bin/pip install -U pip setuptools \
+    && $POETRY_VENV/bin/pip install poetry==${POETRY_VERSION}
+
+# Add `poetry` to PATH
+ENV PATH="${PATH}:${POETRY_VENV}/bin"
 
 WORKDIR /app
 
-# Copy our files into the current working directory WORKDIR
-COPY ./inference ./
+# Install dependencies
+COPY ./inference/poetry.lock ./
+COPY ./inference/pyproject.toml ./
 
-# install our dependencies
 RUN poetry install
 
-ENTRYPOINT ["poetry", "run", "python", "app.py"]
+COPY ./inference ./
+
+RUN poetry install
+
+EXPOSE 5000
