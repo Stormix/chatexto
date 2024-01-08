@@ -30,4 +30,4 @@ COPY ./inference ./
 
 EXPOSE 5000
 
-ENTRYPOINT ["poetry", "run", "python", "app.py"]
+ENTRYPOINT ["poetry", "run", "flask", "run", "--host", "0.0.0.0"]
