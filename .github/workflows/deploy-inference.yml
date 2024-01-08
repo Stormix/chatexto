@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  deploy-next:
+  deploy-inference:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

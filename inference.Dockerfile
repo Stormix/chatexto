@@ -1,4 +1,4 @@
-FROM python:3.12-buster
+FROM python:3.12-bookworm
 
 # Configure Poetry
 ENV POETRY_VERSION=1.7.1
