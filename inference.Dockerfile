@@ -1,4 +1,4 @@
-FROM tiangolo/uwsgi-nginx:python3.9
+FROM python:3.12-buster
 
 # Configure Poetry
 ENV POETRY_VERSION=1.7.1
@@ -24,6 +24,6 @@ RUN poetry install
 
 COPY ./inference ./
 
-RUN poetry install
-
 EXPOSE 5000
+
+ENTRYPOINT ["poetry", "run", "python", "app.py"]

@@ -6,7 +6,7 @@ authors = ["Anas Mazouni <madadj4@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.12"
 Flask = "^3.0.0"
 fasttext = {git = "https://github.com/cfculhane/fastText.git"}
 numpy = "^1.26.3"
