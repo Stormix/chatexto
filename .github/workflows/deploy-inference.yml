@@ -3,6 +3,7 @@ name: Deploy Inference
 on:
   push:
     branches: [main]
+    paths: ['inference/**']
 
 jobs:
   deploy-inference:
