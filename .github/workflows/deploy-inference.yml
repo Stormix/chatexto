@@ -1,4 +1,4 @@
-name: Deploy Next
+name: Deploy Inference
 
 on:
   push:
@@ -23,9 +23,9 @@ jobs:
       - name: Create tar
         run: |
           # Change the dockerfilePath to use ws.Dockerfile instead
-          sed -i 's/"dockerfilePath": ".\/Dockerfile"/"dockerfilePath": ".\/ws.Dockerfile"/g' ./captain-definition
+          sed -i 's/"dockerfilePath": ".\/Dockerfile"/"dockerfilePath": ".\/inference.Dockerfile"/g' ./captain-definition
 
           tar -cvf ./deploy.tar --exclude='node_modules' --exclude='.git' --exclude='.next' *
 
       - name: Deploy
-        run: caprover deploy -h ${{ secrets.CAPROVER_SERVER_PROD }} -p ${{ secrets.CAPROVER_PASSWORD_PROD }} -a chatexto-ws -t ./deploy.tar
+        run: caprover deploy -h ${{ secrets.CAPROVER_SERVER_PROD }} -p ${{ secrets.CAPROVER_PASSWORD_PROD }} -a chatexto-inference -t ./deploy.tar

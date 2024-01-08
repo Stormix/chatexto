@@ -13,7 +13,6 @@ class Inference:
         if self.model:
             print("Model already loaded, we'll use it.")
             return
-        print("Downloading model.")
         model_path = hf_hub_download(repo_id="facebook/fasttext-en-vectors", filename="model.bin", cache_dir="cache")
         self.model = fasttext.load_model(model_path)
 
