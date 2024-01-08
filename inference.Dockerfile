@@ -1,5 +1,9 @@
 FROM python:3.12-bookworm
 
+
+ARG HOST=${HOST}
+ENV HOST=${HOST}
+
 # Configure Poetry
 ENV POETRY_VERSION=1.7.1
 ENV POETRY_HOME=/opt/poetry
