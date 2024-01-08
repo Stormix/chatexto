@@ -1,11 +1,14 @@
 import fasttext
 import numpy as np
 import subprocess
+import os
 
 from flask import Flask, jsonify, request
 from errors import InvalidUsage
 from huggingface_hub import hf_hub_download
+from dotenv import load_dotenv
 
+load_dotenv()
 
 class Inference:
     model = None
@@ -45,4 +48,4 @@ def handle_invalid_usage(error):
 
 if __name__ == '__main__':
     inference.load_model()
-    app.run()
+    app.run(host=os.getenv("HOST", "127.0.0.1"))
