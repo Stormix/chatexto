@@ -12,7 +12,10 @@ const Contexto = ({ className }: ContextoProps) => {
   return (
     <div className={cn('border-2 rounded-lg flex justify-center items-center', className)}>
       <div className="flex flex-col w-6/12 gap-4">
-        {game?.guesses.map((guess, index) => <Guess key={index} guess={guess} />)}
+        {game?.guesses
+          .sort((a, b) => a.distance - b.distance)
+          .slice(0, 10)
+          .map((guess, index) => <Guess key={index} guess={guess} />)}
       </div>
     </div>
   );

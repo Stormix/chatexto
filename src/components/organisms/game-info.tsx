@@ -18,6 +18,13 @@ const GameInfo = () => {
     }, 0);
   }, [game?.guesses]);
 
+  const closestGuess = useMemo(() => {
+    return game?.guesses?.reduce((acc, guess) => {
+      if (guess.distance < acc) return guess.distance;
+      return acc;
+    }, Infinity);
+  }, [game?.guesses]);
+
   useEffect(() => {
     socket.on('game:guess', (message: GuessPayload) => {
       setGuesses((prev) => {
@@ -39,9 +46,13 @@ const GameInfo = () => {
           <PiFireSimpleFill className="w-6 h-6" />
           <span className="uppercase">Top Score : {topScore}</span>
         </Alert>
+        <Alert className="text-chatexto-orange">
+          <PiFireSimpleFill className="w-6 h-6" />
+          <span className="uppercase">Closest Guess : {closestGuess}</span>
+        </Alert>
         <Alert>
           <PiFlagFill className="w-6 h-6" />
-          <span className="uppercase">Total guesses : {game?.guesses?.length ?? 0}</span>
+          <span className="uppercase">Total guesses : {game?.totalGuesses ?? 0}</span>
         </Alert>
       </div>
     </div>

@@ -29,7 +29,6 @@ inference = Inference()
 def health():
     return jsonify({"health": "ok"})
 
-
 @app.route("/predict", methods=["POST"])
 def predict():
     if not inference.model:

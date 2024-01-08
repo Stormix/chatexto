@@ -1,8 +1,8 @@
 import { db } from '@/lib/db';
 import { startOfDay } from 'date-fns';
+import { generate } from 'random-words';
 
 export const getGame = async (userId: string) => {
-  // const
   const today = new Date();
 
   let game = await db.game.findFirst({
@@ -27,7 +27,7 @@ export const getGame = async (userId: string) => {
 
   if (!game) {
     // Create a new game
-    const word = 'student'; // TODO: Get a random word from a dictionary
+    const [word] = generate(1);
 
     game = await db.game.create({
       data: {
@@ -41,7 +41,7 @@ export const getGame = async (userId: string) => {
             participant: true,
           },
           orderBy: {
-            score: 'desc',
+            distance: 'asc',
           },
         },
       },
@@ -51,7 +51,8 @@ export const getGame = async (userId: string) => {
   return game
     ? {
         ...game,
-        guesses: game.guesses.slice(0, 10),
+        guesses: game.guesses.sort((a, b) => a.distance - b.distance).slice(0, 20),
+        totalGuesses: game.guesses.length,
       }
     : null;
 };

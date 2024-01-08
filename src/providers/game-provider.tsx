@@ -34,7 +34,7 @@ export const GameProvider = ({ children, session }: GameProviderProps) => {
   const connected = useRef(false);
   const [started, setStarted] = useState(false);
   const { data } = trpc.game.game.useQuery(undefined, {
-    refetchInterval: 5_000, // TODO: use subscription
+    refetchInterval: 2_000, // TODO: use subscription
   });
 
   useEffect(() => {
